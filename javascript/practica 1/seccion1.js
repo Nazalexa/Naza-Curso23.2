@@ -1,4 +1,4 @@
-let Numero1 = Number( prompt("Ingrese Numero 1 "));
+let Numero1 = Number(prompt("Ingrese Numero 1 "));
 let Numero2 = Number(prompt("Ingrese Numero 2 "));
 let resultado;
 
