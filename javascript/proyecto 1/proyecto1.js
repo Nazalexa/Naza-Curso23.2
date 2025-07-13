@@ -31,14 +31,14 @@ let palabras = ["tonto", "chispas", "recorcholis", "rayos", "caracoles", "cielos
   function filtra_palabras(texto){   
     texto = texto.toLowerCase().trim();
     let textocensurado = texto;
-    palabras.forEach(palabras => {
-      textocensurado = textocensurado.replace(palabras, "****");
+    palabras.forEach(palabra => {
+      textocensurado = textocensurado.replace(palabra, "****");
     });
     return textocensurado;
     }
 
-console.log(filtra_palabras("Hola, que tonto eres, chispas!"));
-console.log(filtra_palabras("Hola, que inteligente eres, genial!"));
+console.log(filtra_palabras("De verdad, que tonto eres, chispas!"));
+console.log(filtra_palabras("Que inteligente eres, genial!"));
 console.log(filtra_palabras("Hola, que recorcholis eres, caracoles!"));
 console.log(filtra_palabras("Por favor, no digas rayos ni cielos!"));
 console.log(filtra_palabras("Esta es una prueba sin malas palabras."));
