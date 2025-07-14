@@ -52,7 +52,7 @@ var personas = [
     { nombre: "Luis", edad: 35, pais: "España", sexo: "masculino" },
 ];
 function filtra_edad(personas) {
-    return personas.filter(persona => persona.edad === 25);  
+    return personas.filter(persona => persona.edad > 25);  
   }
 function filtra_espana_hombres(personas) {
     return personas.filter(persona => persona.pais === "España" && persona.sexo === "masculino");
