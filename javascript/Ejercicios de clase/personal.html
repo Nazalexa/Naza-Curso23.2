@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  /* 
+    Crea una un sistema que modele diferentes tipos de empleados utilizando herencia y
+    POO. Crea una clase base llamada Empleado con propiedades como nombre, apellido, y salario.
+    Luego, crea clases derivadas como Gerente, Desarrollador y Diseñador que
+    hereden de Empleado y añadan propiedades o métodos específicos para cada tipo de empleado.
+
+    Cada clase derivada debe tener un metodo de presentación distinto que muestre
+    información específica del tipo de empleado. Por ejemplo, el Gerente podría mostrar
+    información sobre su equipo, el Desarrollador podría mostrar sus lenguajes de programación
+    y el diseñador podria mostrar tecnologias de diseño que utiliza. 
+
+    El diseñador debe de tener como propiedades: nombre, apellido, salario y tecnologias.
+    El desarrollador debe de tener como propiedades: nombre, apellido, salario y lenguajes.
+    El gerente debe de tener como propiedades: nombre, apellido, salario y equipo de trabajo.
+
+    Además, cada trabajador debe de tener un metodo que calcule el monto por horas extras trabajadas más su salario
+    teniendo en cuenta que para un diseñador la hora extra es de $100, para un desarrollador es de $150
+    y para un gerente es de $200. Y el salario de un diseñador es de $1000, el salario de un desarrollador es de $1500
+    y el salario de un gerente es de $2000 
+  */
+
+
+    class Empleados {
+      constructor(nombre, apellido, salario) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.salario = salario;
+      }  
+  }
+
+class Diseñador extends Empleados {
+  constructor(nombre, apellido, salario,tecnologias) {
+    super(nombre, apellido, salario);
+    this.tecnologias = tecnologias;
+  }
+  salario_diseñador() {
+    let horasExtras = 5; 
+    let costoHoraExtra = 100; 
+    let totalSalario = this.salario + (horasExtras * costoHoraExtra);
+    alert(`El salario total de ${this.nombre} ${this.apellido} en este mes con las horas extras incluidas es de: $${totalSalario}`);
+
+}
+
+  presentacion() {
+    alert(`Hola soy ${this.nombre} ${this.apellido} y soy experto en el manejo de 
+    ${this.tecnologias}. Mi salrio es $${this.salario}. 
+    Y en este mes he trabajado 5 horas extras.`);
+  }
+
+}
+
+let diseño = new Diseñador ("Anthony","Delgado", 1000, "Adobe Photoshop");
+diseño.presentacion();
+diseño.salario_diseñador();
+
+
+
+class Desarrollador extends Empleados {
+  constructor(nombre, apellido, salario,lenguaje) {
+    super(nombre, apellido, salario);
+    this.lenguaje = lenguaje;
+  }
+salario_desarrollador() {
+    let horasExtras = 12; 
+    let costoHoraExtra = 150; 
+    let totalSalario = this.salario + (horasExtras * costoHoraExtra);
+    alert(`El salario total de ${this.nombre} ${this.apellido} en este con mes con las horas extras incluidas es de: $${totalSalario}`);
+  }
+  presentacion() {
+    alert(`Mi nombre es ${this.nombre} ${this.apellido} y me especializo en los 
+    lenguajes de programación ${this.lenguaje}. Mi salario es 
+    $${this.salario}, y en este mes he hecho 12 horas extras.`);
+  }
+}
+let desarrollo = new Desarrollador ("David","Lobo", 1500, "JavaScript, Java y Phyton");
+desarrollo.presentacion();
+desarrollo.salario_desarrollador();
+
+
+
+class Gerente extends Empleados {
+  constructor(nombre, apellido, salario,equipo) {
+    super(nombre, apellido, salario);
+    this.equipo = equipo;
+  }
+  salario_gerente() {
+    let horasExtras = 15; 
+    let costoHoraExtra = 200; 
+    let totalSalario = this.salario + (horasExtras * costoHoraExtra);
+    alert(`El salario total de ${this.nombre} ${this.apellido} en este con mes con las horas extras incluidas es de: $${totalSalario}`);
+  }
+  presentacion() {
+    alert(`Hola, buenas tardes, soy ${this.nombre} ${this.apellido} en este momento estan bajo mi cargo 
+    los equipo de ${this.equipo}, mi salario actual es de $${this.salario} 
+    y en este mes ha tocado realizar un total de 15 horas extras.`);
+  }
+
+}
+let gerencia = new Gerente ("Diana","villegas", 2000, "diseño y desarrollo");
+gerencia.presentacion();
+gerencia.salario_gerente();
+
+
+
+  </script>
+</body>
+</html
