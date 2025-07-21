@@ -734,3 +734,170 @@ arquero.atacar_con_arco();
   - Agrega la clase "vampiro" cuyos ataques regenerar un % aleatorio de vida al personaje.
   - Agrega la posibilidad de 1 entre 10 de que un personaje se tropiece y no pueda hacer nada en esa ronda.
 */
+
+let legolas = {
+  nombre: "legolas",
+  defensa: 10,
+  ataque: 100,
+  vida: 1000,
+  flechas: [
+    {
+      nombre: "flecha de fuego",
+      ataque: 200,
+      cantidad: 5,
+    },
+    {
+      nombre: "flecha de hielo",
+      ataque: 200,
+      cantidad: 5,
+    },
+  ],
+};
+
+let jhon_snow = {
+  nombre: "jhon snow",
+  defensa: 15,
+  ataque: 120,
+  vida: 1200,
+  armas: [
+    {
+      nombre: "espada",
+      ataque: 150,
+    },
+    {
+      nombre: "maza",
+      ataque: 180,
+    },
+    {
+      nombre: "lobo",
+      ataque: 220,
+    },
+    {
+      nombre: "poder del guion",
+      ataque: 3000,
+    },
+  ],
+};
+
+function numero_aleatorio(numero) {
+  return Math.floor(Math.random() * numero);
+}
+
+function verificar_muerte(personajes) {
+  for (personaje of personajes) {
+    if (personaje.vida <= 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+do {
+  let personajes = [legolas, jhon_snow];
+  let turno = Math.floor(Math.random() * 2);
+  let atacante = personajes[turno];
+  do {
+    var defensor = personajes[Math.floor(Math.random() * 2)];
+  } while (defensor.nombre === atacante.nombre);
+
+  let accion = numero_aleatorio(2);
+
+  if (accion == 0) {
+    console.log(`${atacante.nombre} ataca a ${defensor.nombre} con los puños`);
+    daño =
+      numero_aleatorio(atacante.ataque) - numero_aleatorio(defensor.defensa);
+    if (daño < 0) {
+      daño = 0;
+    }
+    defensor.vida -= daño; //defensor.vida = defensor.vida - daño
+    console.log(
+      `${atacante.nombre} le ha quitado ${daño} puntos de vida a ${defensor.nombre}, le quedan ${defensor.vida}`
+    );
+    if (defensor.vida <= 0) {
+      console.log(`${defensor.nombre} ha muerto`);
+    }
+  } else if ((accion = 1)) {
+    if (atacante.flechas) {
+      let flecha = atacante.flechas[numero_aleatorio(atacante.flechas.length)];
+      console.log(
+        `${atacante.nombre} ataca a ${defensor.nombre} con ${flecha.nombre}`
+      );
+      daño =
+        numero_aleatorio(flecha.ataque) - numero_aleatorio(defensor.defensa);
+      if (daño < 0) {
+        daño = 0;
+      }
+      defensor.vida -= daño; //defensor.vida = defensor.vida - daño
+      console.log(
+        `${atacante.nombre} le ha quitado ${daño} puntos de vida a ${defensor.nombre}, le quedan ${defensor.vida}`
+      );
+      if (defensor.vida <= 0) {
+        console.log(`${defensor.nombre} ha muerto`);
+      }
+    } else if (atacante.armas) {
+      let arma = atacante.armas[numero_aleatorio(atacante.armas.length)];
+      console.log(
+        `${atacante.nombre} ataca a ${defensor.nombre} con ${arma.nombre}`
+      );
+      daño = numero_aleatorio(arma.ataque) - numero_aleatorio(defensor.defensa);
+      if (daño < 0) {
+        daño = 0;
+      }
+      defensor.vida -= daño; //defensor.vida = defensor.vida - daño
+      console.log(
+        `${atacante.nombre} le ha quitado ${daño} puntos de vida a ${defensor.nombre}, le quedan ${defensor.vida}`
+      );
+      defensor.vida -= daño;
+      if (defensor.vida <= 0) {
+        console.log(`${defensor.nombre} ha muerto`);
+      }
+    }
+  }
+} while (verificar_muerte([legolas, jhon_snow]));
+
+/*
+  Programación Funcional
+  La programación funcional es un paradigma de programación (una forma de pensar y organizar el código)
+  que se basa en el uso de funciones puras, inmutabilidad y la evitación de efectos secundarios.
+  En la programación funcional, las funciones son ciudadanos de primera clase, lo que significa que pueden
+  ser pasadas como argumentos, retornadas desde otras funciones y asignadas a variables.
+*/
+
+function juego_piedra_papel_tijera() {
+  //pedir jugadas a los jugadores
+  jugador1 = pedir_jugada(1);
+  jugador2 = pedir_jugada(2);
+  // Validar las jugadas de los jugadores
+  if (!validar_jugada(jugador1) || !validar_jugada(jugador2)) {
+    console.log("Jugada inválida. Debe ser piedra, papel o tijera.");
+    return;
+  }
+  // Evaluar el resultado del juego e imprimir el resultado
+  console.log(evaluar_resultado(jugador1, jugador2));
+}
+
+function pedir_jugada(jugador) {
+  let jugada = prompt(
+    `Jugador ${jugador}, ingresa tu jugada (piedra, papel o tijera):`
+  );
+  return jugada.toLowerCase();
+}
+
+function validar_jugada(jugada) {
+  const opciones = ["piedra", "papel", "tijera"];
+  return opciones.includes(jugada);
+}
+
+function evaluar_resultado(jugador1, jugador2) {
+  if (jugador1 === jugador2) {
+    return "Empate";
+  } else if (
+    (jugador1 === "piedra" && jugador2 === "tijera") ||
+    (jugador1 === "papel" && jugador2 === "piedra") ||
+    (jugador1 === "tijera" && jugador2 === "papel")
+  ) {
+    return "Jugador 1 gana";
+  } else {
+    return "Jugador 2 gana";
+  }
+}
