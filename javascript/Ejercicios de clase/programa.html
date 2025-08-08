@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const datosUsuario = {
+      Nombre: "",
+      Correo: "",
+      Contraseña: ""
+    };
+
+    function validar_prompt(campo, valor, regex) {
+      if (!regex.test(valor)) {
+        alert(`El ${campo} no cumple con los requisitos`);
+        return false;
+      }
+      return true;
+    }
+
+    function guardarDatos() {
+      datosUsuario.Nombre = prompt("Ingrese su nombre.");
+      datosUsuario.Correo = prompt("Ingrese su correo.");
+      datosUsuario.Contraseña = prompt("Ingrese su contraseña.");
+      
+      let nombresRegex = /^[a-z\sáéíóú']{3,20}$/i;
+      let correoRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!*.[\]#@&])[a-zA-Z\d!*.[\]#@&]{6,12}$/;
+
+      if (
+        validar_prompt("Nombre", datosUsuario.Nombre, nombresRegex) &&
+        validar_prompt("Correo", datosUsuario.Correo, correoRegex) &&
+        validar_prompt("Contraseña", datosUsuario.Contraseña, passwordRegex)
+      ) {
+        localStorage.setItem('nombre', datosUsuario.Nombre);
+        localStorage.setItem('correo', datosUsuario.Correo);
+        localStorage.setItem('contraseña', datosUsuario.Contraseña);
+        
+        alert(`Información correcta: ${datosUsuario.Nombre}, ${datosUsuario.Correo}`);
+      } else {
+        alert("Por favor ingrese datos válidos");
+        return;
+      }
+    }
+
+    guardarDatos();
+
+    let dataExpiracion = new Date();
+    dataExpiracion.setTime(dataExpiracion.getTime() + (7 * 24 * 3600 * 1000));
+
+    document.cookie = `nombre=${datosUsuario.Nombre}; expires=${dataExpiracion.toUTCString()}; path=/`;
+    document.cookie = `correo=${datosUsuario.Correo}; expires=${dataExpiracion.toUTCString()}; path=/`;
+    document.cookie = `contraseña=${datosUsuario.Contraseña}; expires=${dataExpiracion.toUTCString()}; path=/`;
+
+    let cookies = document.cookie;
+    let datosEncontrados = false;
+
+    cookies.split("; ").forEach((cookie) => {
+      let [nombre, valor] = cookie.split("=");
+      if (nombre === "nombre" && valor) {
+        alert("Nombre es: " + valor);
+        datosEncontrados = true;
+      } else if (nombre === "correo" && valor) {
+        alert("Correo es: " + valor);
+        datosEncontrados = true;
+      } else if (nombre === "contraseña" && valor) {
+        alert("Contraseña es: " + valor);
+        datosEncontrados = true;
+      }
+    });
+
+    if (!datosEncontrados) {
+      alert("Por favor vuelva a intentarlo");
+    } 
+  </script>
+</body>
+</html>
+
+
